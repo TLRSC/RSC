@@ -26,6 +26,12 @@
 			<artifactId>netty-socketio</artifactId>
 			<version>1.7.12</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.2.0</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

@@ -45,7 +45,15 @@ public class Server {
 			plugin.getLogger().info("Disconnected: " + socketIOClient.getRemoteAddress());
 		});
 
-		server.addEventListener("command", RunCommand.class, (socketIOClient, runCommand, ackRequest) -> plugin.getServer().dispatchCommand(new ConsoleCommandSender(), runCommand.getCommand()));
+		server.addEventListener("command", RunCommand.class, (socketIOClient, runCommand, ackRequest) -> {
+			cn.nukkit.Server.getInstance().getScheduler().scheduleTask(new Runnable() {
+				@Override
+				public void run() {
+					cn.nukkit.Server.getInstance().dispatchCommand(new ConsoleCommandSender(), runCommand.getCommand());
+				}
+			});
+
+		});
 
 		new ConsoleUpdate(text -> {
 			server.getBroadcastOperations().sendEvent("console", text);

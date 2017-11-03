@@ -12,7 +12,7 @@ import java.io.FileReader;
 public class Main extends PluginBase {
 
 	private Server s;
-
+	
 	private Config config;
 
 	@Override
