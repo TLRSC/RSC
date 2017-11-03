@@ -59,12 +59,12 @@ public class Server {
 			server.getBroadcastOperations().sendEvent("console", text);
 		}).start();
 
-		plugin.getLogger().info("Starting ws server..");
+		plugin.getLogger().info("§eStarting ws server..");
 		server.startAsync();
 	}
 
 	public void stop() {
-		plugin.getLogger().info("Stopping ws server..");
+		plugin.getLogger().info("§eStopping ws server..");
 		server.stop();
 	}
 

@@ -6,6 +6,8 @@ public class Config {
 
 	private int port = 9094;
 
+	private String secret;
+
 	public String getHost() {
 		return host;
 	}
@@ -20,5 +22,13 @@ public class Config {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
 	}
 }
