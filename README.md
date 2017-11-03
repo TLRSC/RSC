@@ -1,7 +1,7 @@
 # RSC
 Remote Server Control - Nukkit Version
 
-##Compile:
+## Compile:
 <pre>
 mvn package
 </pre>
