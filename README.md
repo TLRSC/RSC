@@ -1,2 +1,7 @@
 # RSC
-Remote Server Controll [Nukkit]
+Remote Server Control - Nukkit Version
+
+##Compile:
+<pre>
+mvn package
+</pre>
