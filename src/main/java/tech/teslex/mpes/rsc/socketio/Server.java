@@ -37,7 +37,7 @@ public class Server {
 		server = new SocketIOServer(config);
 
 		server.addConnectListener(socketIOClient -> {
-			if (socketIOClient.getHandshakeData().getUrlParams().containsValue(secret))
+			if (socketIOClient.getHandshakeData().getUrlParams().containsKey(secret))
 				plugin.getLogger().info("Connected: " + socketIOClient.getRemoteAddress());
 			else
 				socketIOClient.disconnect();
