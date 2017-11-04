@@ -26,19 +26,24 @@ public class Main extends PluginBase {
 	public void onEnable() {
 		config = loadCfg();
 
-		s = new Server(getServer().getIp(), config.getPort(), this, config.getSecret());
-		s.start();
+		if (config.getSecret().equalsIgnoreCase("0.0.0.0") ||
+				config.getSecret().equalsIgnoreCase("CHANGE IT")) {
+			getLogger().info("§cERROR: CHANGE DEFAULT PARAMS IN CONFIG");
+		} else {
+			s = new Server(getServer().getIp(), config.getPort(), this, config.getSecret());
+			s.start();
 
-		try {
-			Algorithm algorithm = Algorithm.HMAC256(sign);
-			String token = JWT.create()
-					.withClaim("host", config.getHost())
-					.withClaim("port", config.getPort())
-					.withClaim("secret", config.getSecret())
-					.sign(algorithm);
-			getLogger().info("§eYOUR TOKEN: §a" + token);
-		} catch (UnsupportedEncodingException | JWTCreationException exception){
-			exception.printStackTrace();
+			try {
+				Algorithm algorithm = Algorithm.HMAC256(sign);
+				String token = JWT.create()
+						.withClaim("host", config.getHost())
+						.withClaim("port", config.getPort())
+						.withClaim("secret", config.getSecret())
+						.sign(algorithm);
+				getLogger().info("§eYOUR TOKEN: §a" + token);
+			} catch (UnsupportedEncodingException | JWTCreationException exception) {
+				exception.printStackTrace();
+			}
 		}
 	}
 
