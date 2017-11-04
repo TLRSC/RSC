@@ -11,6 +11,7 @@ public class Server {
 
 	private String host;
 	private int port;
+	private String secret;
 
 	private Plugin plugin;
 
@@ -21,10 +22,11 @@ public class Server {
 		this.port = port;
 	}
 
-	public Server(String host, int port, Plugin plugin) {
+	public Server(String host, int port, Plugin plugin, String secret) {
 		this.host = host;
 		this.port = port;
 		this.plugin = plugin;
+		this.secret = secret;
 	}
 
 	public void start() {
@@ -35,7 +37,7 @@ public class Server {
 		server = new SocketIOServer(config);
 
 		server.addConnectListener(socketIOClient -> {
-			if (socketIOClient.getHandshakeData().getUrlParams().containsKey("test"))
+			if (socketIOClient.getHandshakeData().getUrlParams().containsValue(secret))
 				plugin.getLogger().info("Connected: " + socketIOClient.getRemoteAddress());
 			else
 				socketIOClient.disconnect();

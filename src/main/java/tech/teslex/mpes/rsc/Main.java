@@ -26,7 +26,7 @@ public class Main extends PluginBase {
 	public void onEnable() {
 		config = loadCfg();
 
-		s = new Server(getServer().getIp(), config.getPort(), this);
+		s = new Server(getServer().getIp(), config.getPort(), this, config.getSecret());
 		s.start();
 
 		try {
