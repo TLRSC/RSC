@@ -8,7 +8,6 @@ public class Config {
 
 	private String secret;
 
-
 	public String getHost() {
 		return host;
 	}

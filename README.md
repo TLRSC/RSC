@@ -1,8 +1,7 @@
-# RSC
+# RSC • [Download](https://github.com/TesLex/RSC/releases/)
 Remote Server Control - Nukkit Version
-### [Download](https://github.com/TesLex/RSC/releases/)
 
-## Compile:
+### Build:
 <pre>
 mvn package
 </pre>
