@@ -6,14 +6,14 @@ import tech.teslex.mpes.rsc.console.events.ConsoleUpdateEvent;
 
 public class Console {
 
-	private ConsoleUpdate consoleUpdate;
+	private static ConsoleUpdate consoleUpdate;
 
-	public void startTailing() {
+	public static void startTailing() {
 		consoleUpdate = new ConsoleUpdate("server.log");
 		consoleUpdate.start();
 	}
 
-	public void addUpdateListener(ConsoleUpdateEvent consoleUpdateEvent) {
+	public static void addUpdateListener(ConsoleUpdateEvent consoleUpdateEvent) {
 		consoleUpdate.addUpdateListener(consoleUpdateEvent);
 	}
 

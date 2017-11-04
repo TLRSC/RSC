@@ -3,6 +3,7 @@ package tech.teslex.mpes.rsc.socketio;
 import cn.nukkit.plugin.Plugin;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOServer;
+import tech.teslex.mpes.rsc.Main;
 import tech.teslex.mpes.rsc.console.Console;
 import tech.teslex.mpes.rsc.console.RSCCommandSender;
 import tech.teslex.mpes.rsc.socketio.models.RunCommand;
@@ -16,8 +17,6 @@ public class Server {
 	private Plugin plugin;
 
 	private SocketIOServer server;
-
-	private Console console;
 
 	public Server(String host, int port) {
 		this.host = host;
@@ -39,10 +38,12 @@ public class Server {
 		server = new SocketIOServer(config);
 
 		server.addConnectListener(socketIOClient -> {
-			if (socketIOClient.getHandshakeData().getUrlParams().containsKey(secret))
+			if (socketIOClient.getHandshakeData().getUrlParams().containsKey(secret)) {
 				plugin.getLogger().info("Connected: " + socketIOClient.getRemoteAddress());
-			else
+			} else {
+				socketIOClient.sendEvent("auth_error", "Wrong secret");
 				socketIOClient.disconnect();
+			}
 		});
 
 		server.addDisconnectListener(socketIOClient -> {
@@ -53,10 +54,8 @@ public class Server {
 			Console.dispachCommand(new RSCCommandSender(), runCommand.getCommand());
 		});
 
-		console = new Console();
-		console.startTailing();
 
-		console.addUpdateListener(text -> server.getBroadcastOperations().sendEvent("console", text));
+		Console.addUpdateListener(text -> server.getBroadcastOperations().sendEvent("console", text));
 
 		plugin.getLogger().info("§eStarting ws server..");
 		server.startAsync();
