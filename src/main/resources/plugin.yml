@@ -1,4 +1,4 @@
 name: RSC
 main: tech.teslex.mpes.rsc.Main
-version: "0.1-ALPHA"
+version: "0.2-ALPHA"
 api: ["1.0.0"]

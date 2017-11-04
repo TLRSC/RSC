@@ -1,10 +1,10 @@
 package tech.teslex.mpes.rsc.socketio;
 
-import cn.nukkit.command.ConsoleCommandSender;
 import cn.nukkit.plugin.Plugin;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOServer;
-import tech.teslex.mpes.rsc.console.events.ConsoleUpdate;
+import tech.teslex.mpes.rsc.console.Console;
+import tech.teslex.mpes.rsc.console.RSCCommandSender;
 import tech.teslex.mpes.rsc.socketio.models.RunCommand;
 
 public class Server {
@@ -16,6 +16,8 @@ public class Server {
 	private Plugin plugin;
 
 	private SocketIOServer server;
+
+	private Console console;
 
 	public Server(String host, int port) {
 		this.host = host;
@@ -48,18 +50,13 @@ public class Server {
 		});
 
 		server.addEventListener("command", RunCommand.class, (socketIOClient, runCommand, ackRequest) -> {
-			cn.nukkit.Server.getInstance().getScheduler().scheduleTask(new Runnable() {
-				@Override
-				public void run() {
-					cn.nukkit.Server.getInstance().dispatchCommand(new ConsoleCommandSender(), runCommand.getCommand());
-				}
-			});
-
+			Console.dispachCommand(new RSCCommandSender(), runCommand.getCommand());
 		});
 
-		new ConsoleUpdate(text -> {
-			server.getBroadcastOperations().sendEvent("console", text);
-		}).start();
+		console = new Console();
+		console.startTailing();
+
+		console.addUpdateListener(text -> server.getBroadcastOperations().sendEvent("console", text));
 
 		plugin.getLogger().info("§eStarting ws server..");
 		server.startAsync();
