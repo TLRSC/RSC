@@ -4,6 +4,7 @@ import cn.nukkit.plugin.PluginBase;
 import com.google.gson.Gson;
 import tech.teslex.mpes.rsc.config.Config;
 import tech.teslex.mpes.rsc.console.Console;
+import tech.teslex.mpes.rsc.mc.events.EventListener;
 import tech.teslex.mpes.rsc.socketio.Server;
 import tech.teslex.mpes.rsc.utils.JWT;
 
@@ -17,21 +18,20 @@ import java.util.Random;
 
 public class Main extends PluginBase {
 
-	private Server s;
-
 	private static Config config;
-
+	private static Server s;
 	private String sign = new Random().doubles().toString();
 
 	@Override
 	public void onEnable() {
 		config = loadCfg();
 
-		if (config.getSecret().equalsIgnoreCase("0.0.0.0") ||
+		if (config.getSecret().equals("0.0.0.0") ||
 				config.getSecret().equalsIgnoreCase("CHANGE IT")) {
 			getLogger().info("§cERROR: CHANGE DEFAULT PARAMS IN CONFIG");
 		} else {
 			Console.startTailing();
+			registerEvents();
 
 			s = new Server(getServer().getIp(), config.getPort(), this, config.getSecret());
 			s.start();
@@ -56,6 +56,17 @@ public class Main extends PluginBase {
 		s.stop();
 	}
 
+	public static Config getPConfig() {
+		return config;
+	}
+
+	public static Server getIOServer() {
+		return s;
+	}
+
+	private void registerEvents() {
+		getServer().getPluginManager().registerEvents(new EventListener(), this);
+	}
 
 	private Config loadCfg() {
 		saveResource("config.json");
@@ -67,9 +78,5 @@ public class Main extends PluginBase {
 			e.printStackTrace();
 		}
 		return gson.fromJson(br, Config.class);
-	}
-
-	public static Config getPConfig() {
-		return config;
 	}
 }

@@ -1,8 +1,8 @@
 package tech.teslex.mpes.rsc.console;
 
 import cn.nukkit.command.CommandSender;
-import tech.teslex.mpes.rsc.console.events.ConsoleUpdate;
-import tech.teslex.mpes.rsc.console.events.ConsoleUpdateEvent;
+import tech.teslex.mpes.rsc.console.events.console.ConsoleUpdate;
+import tech.teslex.mpes.rsc.console.events.console.ConsoleUpdateEvent;
 
 public class Console {
 

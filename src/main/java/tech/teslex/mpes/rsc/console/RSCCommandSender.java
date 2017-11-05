@@ -5,6 +5,6 @@ import cn.nukkit.command.ConsoleCommandSender;
 public class RSCCommandSender extends ConsoleCommandSender {
 	@Override
 	public String getName() {
-		return "RSC";
+		return "RSCommand";
 	}
 }

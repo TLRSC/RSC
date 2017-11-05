@@ -3,10 +3,13 @@ package tech.teslex.mpes.rsc.socketio;
 import cn.nukkit.plugin.Plugin;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOServer;
-import tech.teslex.mpes.rsc.Main;
 import tech.teslex.mpes.rsc.console.Console;
 import tech.teslex.mpes.rsc.console.RSCCommandSender;
+import tech.teslex.mpes.rsc.socketio.models.Data;
 import tech.teslex.mpes.rsc.socketio.models.RunCommand;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
 
@@ -40,6 +43,14 @@ public class Server {
 		server.addConnectListener(socketIOClient -> {
 			if (socketIOClient.getHandshakeData().getUrlParams().containsKey(secret)) {
 				plugin.getLogger().info("Connected: " + socketIOClient.getRemoteAddress());
+
+				List<String> pls = new ArrayList<>();
+				plugin.getServer().getOnlinePlayers().forEach((v, p) -> pls.add(p.getName()));
+
+				socketIOClient.sendEvent(
+						"data",
+						new Data(pls)
+				);
 			} else {
 				socketIOClient.sendEvent("auth_error", "Wrong secret");
 				socketIOClient.disconnect();

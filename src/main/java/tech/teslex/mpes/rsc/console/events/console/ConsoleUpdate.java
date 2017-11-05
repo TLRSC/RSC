@@ -1,4 +1,4 @@
-package tech.teslex.mpes.rsc.console.events;
+package tech.teslex.mpes.rsc.console.events.console;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
