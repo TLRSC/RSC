@@ -39,8 +39,6 @@ jobs:
           
       - run: mvn clean
       - run: mvn package
-      - run: cp ./target/RSC-1.0-SNAPSHOT.jar $CIRCLE_ARTIFACTS
-      - run: cp ./target/RSC-1.0-SNAPSHOT-jar-with-dependencies.jar $CIRCLE_ARTIFACTS
       
       - store_artifacts:
           path: target/RSC-1.0-SNAPSHOT.jar
