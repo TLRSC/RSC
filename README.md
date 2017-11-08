@@ -1,7 +1,7 @@
-# RSC • [Download](https://github.com/TesLex/RSC/releases/)
-Remote Server Control - Nukkit Version
+# Remote Server Control - Nukkit Version
+[![CircleCI](https://circleci.com/gh/TLRSC/RSC.svg?style=svg)](https://circleci.com/gh/TLRSC/RSC)
 
 ### Build:
 <pre>
-mvn package
+mvn clean package
 </pre>
