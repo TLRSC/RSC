@@ -36,8 +36,8 @@
 
 	<repositories>
 		<repository>
-			<id>nukkit-ru</id>
-			<url>http://repo.nukkit.ru</url>
+			<id>potestas</id>
+			<url>https://repo.potestas.xyz/main</url>
 		</repository>
 	</repositories>
 
